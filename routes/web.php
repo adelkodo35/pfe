@@ -12,8 +12,11 @@ use App\Http\Controllers\RecruteurController;
 use App\Http\Controllers\rhController;
 use App\Http\Controllers\SousadminController;
 use App\Http\Controllers\ModerateurController;
+use App\Http\Controllers\ListeController;
+use App\Http\Controllers\DemandeController;
 
-Route::get('/singC', [candidatController::class,'index'])->name('condidat')->middleware("authx");
+Route::get('/singC', [candidatController::class,'index'])->name('condidat');
+
 
 //Auth::routes();
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -50,11 +53,22 @@ Route::get('Recruteur', [LoginController::class, 'Recruteur'])->name("Recruteur"
 // rh
 Route::get('singRh', [rhController::class, 'show'])->name("singRh.show");
 Route::post('singRh', [rhController::class, 'create'])->name("singRh.c");
+Route::get('singRh/plus', [rhController::class, 'plus'])->name("singRh.plus");
+Route::get('RH.home', [rhController::class, 'home'])->name("RH.home");
+Route::get('RH.show/{id}', [rhController::class, 'view'])->name("RH.show");
+Route::post('singRh/plus', [rhController::class, 'create_plus'])->name("singRh_plus");
+
+Route::get('RH.home/listc', [candidatController::class,'show_all'])->name('list_candidate');
+
+Route::get('RH.home/listc/{id}', [candidatController::class,'show_c'])->name('candidat.profile');
 
 //
 Route::resource("sousadmin",SousadminController::class);
 Route::get('sousadmin.block/{id}',[SousadminController::class,'block'])->name("sousadmin.block");
 Route::get('sousadmin.deblock/{id}',[SousadminController::class,'deblock'])->name("sousadmin.deblock");
+Route::get('sousadmin.login',[SousadminController::class,'login'])->name("sousadmin.login");
+Route::get('sousadmin.inscriptionRH',[SousadminController::class,'inscriptionRH'])->name("sousadmin.inscriptionRH");
+Route::post('sousadmin.destroy.rh/{id}',[SousadminController::class,'destroyrh'])->name("sousadmin.destroy.rh");
 
 
 
@@ -62,9 +76,11 @@ Route::resource("moderateur",ModerateurController::class);
 Route::get('moderateur.block/{id}',[ModerateurController::class,'block'])->name("moderateur.block");
 Route::get('moderateur.deblock/{id}',[ModerateurController::class,'deblock'])->name("moderateur.deblock");
 
+Route::resource("Liste",ListeController::class);
 
+Route::post('liste',[ListeController::class,'star'])->name("liste.star");
 
-
+Route::resource("Demande",DemandeController::class);
 
 
 

@@ -8,8 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Recruteur</title>
+    <title>@yield('title')</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -50,11 +49,9 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gérer  les demandes</h6>
-                        <a class="collapse-item" href="buttons.html">Ajouter une demande</a>
-                        <a class="collapse-item" href="cards.html">Modifier
-                            demande</a>
-                        <a class="collapse-item" href="cards.html">Supprimer une demande </a>
-                        <a class="collapse-item" href="cards.html">Suiver une demande</a>
+                        <a class="collapse-item" href="{{route("Demande.create")}}">Ajouter une demande</a>
+
+                        <a class="collapse-item" href="cards.html">consulter les demande</a>
 
 
                     </div>
@@ -171,23 +168,7 @@
                 </nav>
                 <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-
-
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
+                @yield('content')
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">

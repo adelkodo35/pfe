@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Sousadmin;
 use App\Models\compte;
 use Illuminate\Support\Facades\Hash;
+use App\Models\rh;
 class SousadminController extends Controller
 {
 
@@ -81,19 +82,44 @@ return redirect("sousadmin");
         $admin = compte::where('id','=',$id)->delete();
         return redirect("sousadmin");
     }
+    public function destroyrh($id)
+    {
+
+        $s= rh::where('id_compte','=',$id)->delete();
+        $admin = compte::where('id','=',$id)->delete();
+        return back();
+    }
 
     public function block($id){
 
         $c = compte::find($id);
         $c->etat=0;
      $c->save();
-     return redirect("sousadmin");
+     return back();
     }
     public function deblock($id){
 
         $c = compte::find($id);
         $c->etat=1;
      $c->save();
-     return redirect("sousadmin");
+     return back();
     }
+
+
+
+public function login(){
+  $c = compte::findOrFail(session("LogedUser")) ;
+  if ($c->etat==0) {
+    return view("406");
+  }else{return view("sousadmin.home",['admin' => $c]);
+}
+}
+
+
+public function inscriptionRH(){
+    $rhs = compte::where('type','=','rh')->get() ;
+return view("rh.listRHI",['rhs'=> $rhs]);
+
+}
+
 }

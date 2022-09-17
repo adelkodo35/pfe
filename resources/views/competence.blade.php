@@ -35,5 +35,5 @@
     </select>
     </div>
     <button class="st" type="submit" >ajouter</button>
-    <button class="st" href="{{route("login")}}"   >ignorer</button>
+    <button class="st" href="{{route("login.show")}}"   >ignorer</button>
 </form>

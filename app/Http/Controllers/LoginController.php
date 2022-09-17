@@ -41,11 +41,19 @@ if (Hash::check("$request->mot_passe","$compte->mot_passe")){
         return  redirect("Recruteur");
     }
 
+    if ($compte->type=="rh"){
+        return  redirect("RH.home");
+    }
 
 
 
     if ($compte->type=="admin"){
         return  redirect("admin");
+    }
+
+    if ($compte->type=="sousadmin"){
+        return  redirect("sousadmin.login");
+
     }
 
 
@@ -97,7 +105,7 @@ public function Recruteur(){
         ];
 
     }else{ return redirect("login") ; }
-    return view("Recrut",$data);
+    return view("recrut.Recrut",$data);
 }
 
 

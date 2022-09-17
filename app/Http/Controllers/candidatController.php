@@ -1,18 +1,51 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Liste;
 use App\Models\candidat;
 use App\Models\compte;
 use App\Models\profil;
+use App\Models\diplome;
+use App\Models\experience;
+use App\Models\competence;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use  Illuminate\Validation\Validator;
-use App\Models\diplome;
 class candidatController extends Controller
 {
     public function index()
     {  return view('singC'); }
+
+public function show_all(){
+       $d = diplome :: all() ;
+
+$s = profil :: all() ;
+
+return view('LC',['candidats' => $s,'diplome'=> $d] );
+
+}
+public function show_c($id){
+    $List= Liste::all();
+    $profil= profil::findOrFail($id);
+    $diplome= diplome::where("id_profil","=",$profil->id)->first();
+    $competence = competence::where("id_profil","=",$profil->id)->first();
+    $experience = experience::where("id_profil","=",$profil->id)->first();
+$data=[
+"info"=>$profil ,
+"diplome"=>$diplome,
+"competence"=>$competence,
+"experience"=>$experience,
+"List"=>$List
+];
+
+return view("profilec",$data);
+}
+
+
+
+
 
 public function  create(Request  $request){
       $request->validate([
